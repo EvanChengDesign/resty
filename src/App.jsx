@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 
 import Header from './Components/Header';
@@ -6,43 +6,42 @@ import Footer from './Components/Footer';
 import Form from './Components/Form';
 import Results from './Components/Results';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-      requestParams: {},
-    };
-  }
+const App = () => {
+  const [data, setData] = useState(null);
+  const [requestParams, setRequestParams] = useState({});
 
-  callApi = (requestParams) => {
-    // mock output
-    const data = {
-      count: 2,
-      results: [
-        { name: 'fake thing 1', url: 'http://fakethings.com/1' },
-        { name: 'fake thing 2', url: 'http://fakethings.com/2' },
-      ],
-    };
-    this.setState({ data, requestParams });
+  const callApi = async (requestParams) => {
+    setRequestParams(requestParams);
+
+    try {
+      const response = await fetch(requestParams.url, {
+        method: requestParams.method,
+        headers: requestParams.headers,
+        body: requestParams.body,
+      });
+      const data = await response.json();
+      setData(data);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
   };
 
-  render() {
-    return (
-      <React.Fragment>
-        <Header />
-        <section>
-          <div>Request Method: {this.state.requestParams.method}</div>
-          <div>URL: {this.state.requestParams.url}</div>
-        </section>
-        <div className="response-container">
-          <Results data={this.state.data} />
-        </div>
-        <Form handleApiCall={this.callApi} />
-        <Footer />
-      </React.Fragment>
-    );
-  }
-}
+  return (
+    <React.Fragment>
+      <Header />
+      <section>
+      <Form handleApiCall={callApi} />
+      </section>
+      <section>
+        <div>Request Method: {requestParams.method}</div>
+        <div>URL: {requestParams.url}</div>
+      </section>
+      <div className="response-container">
+        <Results data={data} />
+      </div>
+      <Footer />
+    </React.Fragment>
+  );
+};
 
 export default App;
