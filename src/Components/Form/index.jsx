@@ -26,7 +26,7 @@ const Form = (props) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: method === 'POST' || method === 'PUT' ? JSON.stringify(body) : null,
+      body: method === 'POST' || method === 'PUT' ? body : null,
     };
     props.handleApiCall(formData);
   };

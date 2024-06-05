@@ -26,14 +26,47 @@ const App = () => {
     }
   };
 
+  const formatJsonString = (jsonString) => {
+    try {
+      const jsonObject = JSON.parse(jsonString);
+      return JSON.stringify(jsonObject, null, 2)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?)|(\b(true|false|null)\b)|(\b-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?\b)/g, (match) => {
+          let cls = 'json-value';
+          if (/^"/.test(match)) {
+            if (/:$/.test(match)) {
+              cls = 'json-key';
+            } else {
+              cls = 'json-string';
+            }
+          } else if (/true|false/.test(match)) {
+            cls = 'json-boolean';
+          } else if (/null/.test(match)) {
+            cls = 'json-null';
+          }
+          return `<span class="${cls}">${match}</span>`;
+        });
+    } catch (error) {
+      console.error("Error parsing JSON string:", error);
+      return jsonString; // Return the original string if parsing fails
+    }
+  };
+
   return (
     <React.Fragment>
       <Header />
       <section>
-      <Form handleApiCall={callApi} />
+        <Form handleApiCall={callApi} />
       </section>
       <section>
         <div>Request Method: {requestParams.method}</div>
+        {requestParams.body && (
+          <div>
+            <pre className="request-params" dangerouslySetInnerHTML={{ __html: formatJsonString(requestParams.body) }} />
+          </div>
+        )}
         <div>URL: {requestParams.url}</div>
       </section>
       <div className="response-container">
