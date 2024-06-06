@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center; /* Center the form vertically */
   align-items: center;
-  height: 100vh; /* Full viewport height */
+  height: auto;
   padding: 1em;
   background: #fff;
   border: 1px solid #ddd;
@@ -59,19 +59,50 @@
       padding: 0.5em 1em;
       border: 1px solid #ddd;
       border-radius: 4px;
-      background-color: #f5f5f5;
       text-align: center;
       margin: 0 0.5em;
       flex: 1;
       max-width: 100px;
+      transition: background-color 0.3s ease;
 
       &.active {
-        background-color: #ddd;
         font-weight: bold;
       }
 
-      &:hover {
-        background-color: #ddd;
+      &.GET {
+        background-color: #4caf50;
+        color: #fff;
+
+        &:hover {
+          background-color: #45a049;
+        }
+      }
+
+      &.POST {
+        background-color: #2196f3;
+        color: #fff;
+
+        &:hover {
+          background-color: #1e88e5;
+        }
+      }
+
+      &.PUT {
+        background-color: #ff9800;
+        color: #fff;
+
+        &:hover {
+          background-color: #fb8c00;
+        }
+      }
+
+      &.DELETE {
+        background-color: #f44336;
+        color: #fff;
+
+        &:hover {
+          background-color: #e53935;
+        }
       }
     }
   }
