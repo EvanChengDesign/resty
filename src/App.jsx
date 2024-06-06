@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 
 import Header from './Components/Header';
@@ -11,27 +11,35 @@ const App = () => {
   const [headers, setHeaders] = useState(null);
   const [requestParams, setRequestParams] = useState({});
 
-  const callApi = async (requestParams) => {
-    setRequestParams(requestParams);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!requestParams.url) return;
 
-    try {
-      const response = await fetch(requestParams.url, {
-        method: requestParams.method,
-        headers: requestParams.headers,
-        body: requestParams.body,
-      });
+      try {
+        const response = await fetch(requestParams.url, {
+          method: requestParams.method,
+          headers: requestParams.headers,
+          body: requestParams.body,
+        });
 
-      const responseHeaders = {};
-      response.headers.forEach((value, name) => {
-        responseHeaders[name] = value;
-      });
+        const responseHeaders = {};
+        response.headers.forEach((value, name) => {
+          responseHeaders[name] = value;
+        });
 
-      const data = await response.json();
-      setData(data);
-      setHeaders(responseHeaders);
-    } catch (error) {
-      console.error("Error fetching data: ", error);
-    }
+        const data = await response.json();
+        setData(data);
+        setHeaders(responseHeaders);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchData();
+  }, [requestParams]);
+
+  const callApi = (params) => {
+    setRequestParams(params);
   };
 
   const formatJsonString = (jsonString) => {
@@ -69,19 +77,19 @@ const App = () => {
         <Form handleApiCall={callApi} />
       </section>
       <section>
-        <div>Request Method: {requestParams.method}</div>
+        <div data-testid="request-method">Request Method: {requestParams.method}</div>
         {requestParams.body && (
           <div>
             <pre className="request-params" dangerouslySetInnerHTML={{ __html: formatJsonString(requestParams.body) }} />
           </div>
         )}
-        <div>URL: {requestParams.url}</div>
+        <div data-testid="request-url">URL: {requestParams.url}</div>
       </section>
       <div className="response-container">
         <h2>Response Headers</h2>
-        <pre className="response-headers">{headers && formatJsonString(JSON.stringify(headers))}</pre>
+        <pre className="response-headers" data-testid="response-headers">{headers && formatJsonString(JSON.stringify(headers))}</pre>
         <h2>Results</h2>
-        <Results data={data} />
+        <Results data={data} data-testid="json-display" />
       </div>
       <Footer />
     </React.Fragment>
@@ -89,3 +97,4 @@ const App = () => {
 };
 
 export default App;
+
