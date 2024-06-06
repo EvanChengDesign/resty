@@ -51,7 +51,7 @@ Application Flow:
 
 Connect RESTy with APIs, running live requests.
 
-#### Phase 3 Requirements
+#### Phase 3 Requirements:
 
 In phase 3, we will be connecting RESTy to live APIs, fetching and displaying remote data. Our primary focus will be to service GET requests.
 
@@ -72,7 +72,7 @@ As a user, I want to see the results returned from an API request in my browser 
 
 ### Phase 4: Advanced State with Reducers: Tracking History
 
-#### Phase 4 Requirements
+#### Phase 4 Requirements:
 In phase 4, we will be tracking every API call and storing it in history.
 
 The following user stories detail the major functionality for this phase of the project.
