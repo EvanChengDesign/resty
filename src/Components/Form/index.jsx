@@ -36,8 +36,8 @@ const Form = (props) => {
       <form onSubmit={handleSubmit}>
         <label>
           <span>URL: </span>
-          <input name='url' type='text' value={url} onChange={handleUrlChange} />
-          <button type="submit">GO!</button>
+          <input name='url' type='text' value={url} onChange={handleUrlChange} data-testid='url-input' />
+          <button type="submit" data-testid='fetch-api-button'>GO!</button>
         </label>
         <div className="methods">
           <button
@@ -45,6 +45,7 @@ const Form = (props) => {
             id="GET"
             onClick={handleMethodClick}
             className={method === 'GET' ? 'active' : ''}
+            data-testid='get-input'
           >
             GET
           </button>
@@ -53,6 +54,7 @@ const Form = (props) => {
             id="POST"
             onClick={handleMethodClick}
             className={method === 'POST' ? 'active' : ''}
+            data-testid='post-input'
           >
             POST
           </button>
@@ -61,6 +63,7 @@ const Form = (props) => {
             id="PUT"
             onClick={handleMethodClick}
             className={method === 'PUT' ? 'active' : ''}
+            data-testid='put-input'
           >
             PUT
           </button>
@@ -69,6 +72,7 @@ const Form = (props) => {
             id="DELETE"
             onClick={handleMethodClick}
             className={method === 'DELETE' ? 'active' : ''}
+            data-testid='delete-input'
           >
             DELETE
           </button>
@@ -76,7 +80,7 @@ const Form = (props) => {
         {(method === 'POST' || method === 'PUT') && (
           <label>
             <span>Body: </span>
-            <textarea name='body' value={body} onChange={handleBodyChange} />
+            <textarea name='body' value={body} onChange={handleBodyChange} data-testid='body-input' />
           </label>
         )}
       </form>
