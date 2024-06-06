@@ -33,7 +33,7 @@ const Form = (props) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form">
         <label>
           <span>URL: </span>
           <input name='url' type='text' value={url} onChange={handleUrlChange} data-testid='url-input' />
@@ -44,7 +44,7 @@ const Form = (props) => {
             type="button"
             id="GET"
             onClick={handleMethodClick}
-            className={method === 'GET' ? 'active' : ''}
+            className={method === 'GET' ? 'GET active' : 'GET'}
             data-testid='get-input'
           >
             GET
@@ -53,7 +53,7 @@ const Form = (props) => {
             type="button"
             id="POST"
             onClick={handleMethodClick}
-            className={method === 'POST' ? 'active' : ''}
+            className={method === 'POST' ? 'POST active' : 'POST'}
             data-testid='post-input'
           >
             POST
@@ -62,7 +62,7 @@ const Form = (props) => {
             type="button"
             id="PUT"
             onClick={handleMethodClick}
-            className={method === 'PUT' ? 'active' : ''}
+            className={method === 'PUT' ? 'PUT active' : 'PUT'}
             data-testid='put-input'
           >
             PUT
@@ -71,7 +71,7 @@ const Form = (props) => {
             type="button"
             id="DELETE"
             onClick={handleMethodClick}
-            className={method === 'DELETE' ? 'active' : ''}
+            className={method === 'DELETE' ? 'DELETE active' : 'DELETE'}
             data-testid='delete-input'
           >
             DELETE

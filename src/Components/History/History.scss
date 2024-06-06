@@ -50,11 +50,6 @@ body {
     max-width: 600px;
     box-shadow: 0 2px 4px $shadowColor;
 
-    h2 {
-      text-align: center;
-      width: 100%; /* Ensure h2 takes full width of the section */
-    }
-
     div {
       margin: 0.5em 0;
     }
@@ -178,11 +173,6 @@ body {
   max-width: 600px;
   margin: 2em auto;
   box-shadow: 0 2px 4px $shadowColor;
-
-  h2 {
-    text-align: center;
-    width: 100%; /* Ensure h2 takes full width of the section */
-  }
 
   .history-list {
     list-style-type: none;
